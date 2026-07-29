@@ -57,4 +57,5 @@ This is a public-ready configuration repository. **Do not commit sensitive data.
 
 ## Included Tools
 
+* **Automatic Updates (`update.sh`)** - A silent background script that monitors the upstream repository and automatically pulls new aliases or fixes once every 24 hours.
 * **[Git Branch Cleanup Tool (gitr)](./docs/gitr.md)** - A specialized Zsh utility to safely audit, filter, and batch-delete local Git branches.
