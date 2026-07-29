@@ -27,6 +27,24 @@ The interactive mode of the `gitr` branch cleanup tool requires `fzf` (Command-l
   sudo dnf install fzf
   ```
 
+The `db-up` local database provisioner requires Docker to manage persistent container nodes. Install it using the appropriate method for your machine:
+
+* **macOS:**
+  ```bash
+  brew install --cask docker
+  ```
+* **Ubuntu / Debian:**
+  ```bash
+  sudo apt update && sudo apt install docker.io -y
+  ```
+* **Fedora / RHEL:**
+  ```bash
+  sudo dnf install docker -y
+  ```
+
+*Note: Ensure the Docker daemon is fully started and running before executing the `db-up` command.*
+
+
 ### 2. Integration with Zsh / Bash
 
 To automatically load all configurations and scripts from this repository, add the following code snippet to your main initialization file (e.g., `~/.zshrc` or `~/.bashrc`):
@@ -59,3 +77,4 @@ This is a public-ready configuration repository. **Do not commit sensitive data.
 
 * **Automatic Updates (`update.sh`)** - A silent background script that monitors the upstream repository and automatically pulls new aliases or fixes once every 24 hours.
 * **[Git Branch Cleanup Tool (gitr)](./docs/gitr.md)** - A specialized Zsh utility to safely audit, filter, and batch-delete local Git branches.
+* **[Local Database Provisioner (db-up)](./docs/db-up.md)** - A zsh automation utility that parses project `.env` files to dynamically spin up isolated, persistent PostgreSQL Docker containers.
