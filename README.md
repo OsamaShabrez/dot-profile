@@ -44,15 +44,29 @@ The `db-up` local database provisioner requires Docker to manage persistent cont
 
 *Note: Ensure the Docker daemon is fully started and running before executing the `db-up` command.*
 
+### 2. Integration with zsh / Bash
 
-### 2. Integration with Zsh / Bash
-
-To automatically load all configurations and scripts from this repository, add the following code snippet to your main initialization file (e.g., `~/.zshrc` or `~/.bashrc`):
+To automatically load all configurations and scripts from this repository in the correct order of dependency, add the following code snippet to your main initialization file (e.g., `~/.zshrc` or `~/.bashrc`):
 
 ```sh
-if [ -d "\$HOME/.dot-profile" ]; then
-    for file in "\$HOME"/.dot-profile/*.sh; do
-        [ -r "\(file" ] && source "\)file"
+DOT_PROFILE_DIR="\$HOME/.dot-profile"
+
+if [ -d "\$DOT_PROFILE_DIR" ]; then
+    # Phase 1: Establish environments, path locations, and package binaries first
+    [ -f "\$DOT_PROFILE_DIR/env.sh" ] && source "\$DOT_PROFILE_DIR/env.sh"
+    
+    # Phase 2: Inject autocomplete extensions and plugin configurations
+    [ -f "\$DOT_PROFILE_DIR/completions.sh" ] && source "\$DOT_PROFILE_DIR/completions.sh"
+    
+    # Phase 3: Apply your terminal interface design and prompts
+    [ -f "\$DOT_PROFILE_DIR/theme.sh" ] && source "\$DOT_PROFILE_DIR/theme.sh"
+    
+    # Phase 4: Dynamic iterator fallback for remaining utilities (aliases, functions)
+    for file in "\$DOT_PROFILE_DIR"/*.sh; do
+        # Avoid double sourcing the phase-controlled core files above
+        if [[ "\$file" != *"env.sh" && "\$file" != *"completions.sh" && "\$file" != *"theme.sh" ]]; then
+            [ -r "\$file" ] && source "\$file"
+        fi
     done
 fi
 ```
