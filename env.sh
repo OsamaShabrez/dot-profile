@@ -7,6 +7,7 @@ export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"
 
 # 2. Compiler Flags
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
@@ -17,3 +18,7 @@ export ZSH_DISABLE_COMPFIX="true"
 
 # 4. Node Version Manager Initialization (fnm)
 eval "$(fnm env --use-on-cd --shell zsh)"
+
+# 5. Set Global NPM configuration
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export PATH="$HOME/.npm-global/bin:$PATH"
